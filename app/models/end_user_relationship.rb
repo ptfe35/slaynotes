@@ -1,2 +1,0 @@
-class EndUserRelationship < ApplicationRecord
-end

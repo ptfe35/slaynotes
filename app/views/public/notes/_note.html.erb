@@ -1,5 +1,0 @@
-<%= content_tag "tr", id: "note-#{note.id}", class: "item", data: { model_name: @note.class.name.underscore, update_url: note_sort_path(note)} do %>
-  <td></td>
-  <td><%= link_to note_path(note) do %><%= note.name %><% end %></td>
-  <td><%= note.text %></td>
-<% end %>

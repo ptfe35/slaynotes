@@ -1,2 +1,0 @@
-class PageTag < ApplicationRecord
-end

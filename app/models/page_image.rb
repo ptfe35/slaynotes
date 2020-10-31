@@ -1,2 +1,0 @@
-class PageImage < ApplicationRecord
-end

@@ -1,2 +1,0 @@
-class PageFavorite < ApplicationRecord
-end
