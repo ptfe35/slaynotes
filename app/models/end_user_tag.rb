@@ -1,0 +1,2 @@
+class EndUserTag < ApplicationRecord
+end

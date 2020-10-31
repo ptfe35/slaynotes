@@ -1,0 +1,2 @@
+class PageImage < ApplicationRecord
+end

@@ -1,0 +1,14 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Title</th>
+      <th>Opinion</th>
+    </tr>
+  </thead>
+  <tbody class="table-sortable">
+    <% @notes.each do |note| %>
+    <%= render 'public/notes/note', note: note %>
+    <% end %>
+  </tbody>
+</table>
