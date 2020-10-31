@@ -1,0 +1,2 @@
+class PageComment < ApplicationRecord
+end
