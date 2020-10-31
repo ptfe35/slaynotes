@@ -1,0 +1,15 @@
+<%= form_with model: @note, local: true do |n| %>
+  <%= n.label :name, "ノート名称" %>
+  <%= n.text_field :name %>
+  <%= n.fields_for :chapter do |c| %>
+    <%= c.label :name, "章" %>
+    <%= c.text_field :name %>
+    <%= c.fields_for :page do |p| %>
+      <%= p.label :name, "節" %>
+      <%= p.text_field :name %>
+      <%= p.label :text, "節" %>
+      <%= p.text_area :text %>
+    <% end %>
+  <% end %>
+  <%= n.submit "タスク作成" %>
+<% end %>
