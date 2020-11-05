@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>イメージ</th>
+            <th>タイトル</th>
+            <th>概要</th>
+          </tr>
+        </thead>
+        <tbody class="table-sortable">
+          <% @pages.each do |page| %>
+          <%= render 'public/organizes/organize_page', page: page %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

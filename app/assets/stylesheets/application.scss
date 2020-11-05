@@ -16,6 +16,11 @@
  */
  // Custom bootstrap variables must be set or imported *before* bootstrap.
 
-@import "materialize";
-@import "material_icons";
+@import "bootstrap";
 
+.n-circle {
+  position: absolute;
+  padding-left: 1rem;
+  padding-top: 0rem;
+  color: #efa04c;
+}

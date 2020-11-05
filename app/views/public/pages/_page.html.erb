@@ -1,0 +1,23 @@
+<%= content_tag "tr", id: "page-#{page.id}", class: "item", data: { model_name: @note.class.name.underscore, update_url: page_sort_path(page)} do %>
+<td>
+</td>
+<td>
+  <%= link_to page_path(page) do %>
+  <%= page.name %>
+  <% end %>
+</td>
+<td><%= page.text %></td>
+<td>
+  <% page.page_tags.each do |page_tag| %>
+  <%= link_to note_path(page.note_id, page_tag_id: page_tag.id) do %>
+  <%= page_tag.name %>
+  <% end %>
+  <% end %>
+</td>
+<td><%= page.page_comments.count %></td>
+
+<td class="favorite_<%= page.id %>">
+  <%= render 'public/page_favorites/favorite', page: page %>
+</td>
+
+<% end %>

@@ -1,0 +1,38 @@
+<div class="container">
+
+<div class="row">
+  <div class="col-12">
+  <%= @note.name %>
+</div>
+</div>
+<div class="row">
+  <div class="col-12">
+  <%= link_to new_page_path do %>
+  <span class="btn">ページ追加</span>
+  <% end %>
+</div>
+</div>
+
+  <% if @page_tag.present? %>
+  <%= @page_tag.name %>
+  <% end %>
+
+<div class="row">
+  <div class="col-12">
+<table class="table">
+  <thead>
+    <tr>
+      <th>イメージ</th>
+      <th>タイトル</th>
+      <th>概要</th>
+    </tr>
+  </thead>
+  <tbody class="table-sortable">
+    <% @pages.each do |page| %>
+    <%= render 'public/pages/page', page: page %>
+    <% end %>
+  </tbody>
+</table>
+  </div>
+</div>
+</div>

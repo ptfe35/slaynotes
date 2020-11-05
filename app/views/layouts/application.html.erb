@@ -13,60 +13,140 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 
-<body>
+<body class="d-flex flex-column" style="min-height: 100vh">
 
-  <%# 管理者用ヘッダー %>
-  <% if admin_admin_signed_in? %>
-  <nav>
-    <ul class="nav main-nav">
-      <li><a href="#" class="logo">Logo</a></li>
-      <li><a href="#">Admin Menu 1</a></li>
-      <li><a href="#">Admin Menu 2</a></li>
-      <li><a href="#">Admin Menu 3</a></li>
-      <li>
-        <%= link_to destroy_admin_admin_session_path, method: :delete do %>
-        <button type="button" class="btn page-link text-dark d-inline-block">ログアウト<span class="sr-only"></span></button>
+  <header class="sticky-top">
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+      <% if admin_admin_signed_in? %>
+      <%= link_to admin_root_path do %>
+      <%# image_tag 'nagano_cake_clear2.png', size: "260x100", class:'navbar-brand' %>
+      <% end %>
+      <% else %>
+      <%= link_to root_path do %>
+      <%# image_tag 'nagano_cake_clear2.png', size: "260x100", class:'navbar-brand' %>
+      <% end %>
+      <% end %>
+      <ul class="navbar-nav ml-auto">
+
+        <%# 管理者用ヘッダー %>
+        <% if admin_admin_signed_in? %>
+        <li class="m-3">
+          <%= link_to admin_products_path do %>
+          <button type="button" class="btn page-link text-dark d-inline-block">商品一覧<span
+              class="sr-only"></span></button>
+          <% end %>
+        </li>
+        <li class="m-3">
+          <%= link_to admin_customers_path do %>
+          <button type="button" class="btn page-link text-dark d-inline-block">会員一覧<span
+              class="sr-only"></span></button>
+          <% end %>
+        </li>
+        <li class="m-3">
+          <%= link_to admin_orders_path(order_check: nil) do %>
+          <button type="button" class="btn page-link text-dark d-inline-block">注文履歴一覧<span
+              class="sr-only"></span></button>
+          <% end %>
+        </li>
+        <li class="m-3">
+          <%= link_to admin_genres_path do %>
+          <button type="button" class="btn page-link text-dark d-inline-block">ジャンル一覧<span
+              class="sr-only"></span></button>
+          <% end %>
+        </li>
+        <li class="m-3">
+          <%= link_to destroy_admin_admin_session_path, method: :delete do %>
+          <button type="button" class="btn page-link text-dark d-inline-block">ログアウト<span
+              class="sr-only"></span></button>
+          <% end %>
+        </li>
+        <div class="m-3 form-inline">
+          <%= form_tag(admin_search_path, method: :get) do %>
+          <%= text_field_tag :search, '', class: 'form-control', placeholder: 'Search' %>
+          <% end %>
+        </div>
+
+        <%# 一般会員用ヘッダー %>
+        <% elsif end_user_signed_in? %>
+        <li class="m-3 d-flex align-items-center">ようこそ、<%= current_end_user.name %>さん！</li>
+        <% if unchecked_notifications.any? %>
+        <i class="fa fa-circle" style="color: gold;"></i>
         <% end %>
-      </li>
-    </ul>
-  </nav>
-  <%# 一般会員用ヘッダー %>
-  <% elsif end_user_signed_in? %>
-  <nav>
-    <ul class="nav main-nav">
-      <li><a href="#" class="logo">Logo</a></li>
-      <li><a href="#">Menu 1</a></li>
-      <li>
-        <%= link_to end_user_path(current_end_user) do %>
-        <button type="button" class="btn page-link text-dark d-inline-block">マイページ<span class="sr-only"></span></button>
+        <li>
+          <%= link_to "NOTICE", notifications_path, class: "mt-3 btn-default" %>
+        </li>
+        <li class="m-3">
+          <%= link_to end_user_path(current_end_user) do %>
+          <button type="button" class="btn page-link text-dark d-inline-block">マイページ<span
+              class="sr-only"></span></button>
+          <% end %>
+        </li>
+        <li class="m-3">
+          <%= link_to notes_path do %>
+          <button type="button" class="btn page-link text-dark d-inline-block">新しいノートをつくる<span
+              class="sr-only"></span></button>
+          <% end %>
+        </li>
+        <li class="m-3">
+          <%= link_to organizes_path do %>
+          <button type="button" class="btn page-link text-dark d-inline-block">ノートを整理する<span
+              class="sr-only"></span></button>
+          <% end %>
+        </li>
+        <li class="m-3">
+          <%= link_to network_path do %>
+          <button type="button" class="btn page-link text-dark d-inline-block">ネットワーク<span
+              class="sr-only"></span></button>
+          <% end %>
+        </li>
+        <li class="m-3">
+          <%= link_to destroy_end_user_session_path, method: :delete do %>
+          <button type="button" class="btn page-link text-dark d-inline-block">ログアウト<span
+              class="sr-only"></span></button>
+          <% end %>
+        </li>
+
+        <%# ログイン前のヘッダー %>
+        <% else %>
+        <li class="m-3">
+          <%= link_to about_path do %>
+          <button type="button" class="btn page-link text-dark d-inline-block">About<span
+              class="sr-only"></span></button>
+          <% end %>
+        </li>
+        <li class="m-3">
+          <%= link_to new_end_user_registration_path do %>
+          <button type="button" class="btn page-link text-dark d-inline-block">新規登録<span
+              class="sr-only"></span></button>
+          <% end %>
+        </li>
+        <li class="m-3">
+          <%= link_to new_end_user_session_path do %>
+          <button type="button" class="btn page-link text-dark d-inline-block">ログイン<span
+              class="sr-only"></span></button>
+          <% end %>
+        </li>
         <% end %>
-      </li>
-      <li>
-        <%= link_to notes_path do %>
-        <button type="button" class="btn page-link text-dark d-inline-block">新しいノートをつくる<span class="sr-only"></span></button>
-        <% end %>
-      </li>
-      <li>
-        <%= link_to destroy_end_user_session_path, method: :delete do %>
-        <button type="button" class="btn page-link text-dark d-inline-block">ログアウト<span class="sr-only"></span></button>
-        <% end %>
-      </li>
-    </ul>
-  </nav>
-  <% else %>
-  <nav>
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo right">Logo</a>
-      <ul id="nav-mobile" class="left hide-on-med-and-down">
-        <li><a href="sass.html">Sass</a></li>
-        <li><a href="badges.html">Components</a></li>
-        <li><a href="collapsible.html">JavaScript</a></li>
       </ul>
-    </div>
-  </nav>
-  <% end %>
+    </nav>
 
-  <%= yield %>
+    <%= render 'layouts/flashes' %>
+
+  </header>
+
+  <main>
+    <%= yield %>
+  </main>
+
+  <footer class="mt-auto">
+    <div class="container">
+      <div class="row">
+        <div class="col-4 offset-8">
+          <span>©︎ 2020 ptfe35</span>
+        </div>
+      </div>
+    </div>
+  </footer>
 
 </body>
 

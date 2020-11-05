@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+
+      <%# ノート検索 %>
+      <% if @range == '2' %>
+      <h2>Notes search for '<%= @word %>'</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>イメージ</th>
+            <th>タイトル</th>
+            <th>概要</th>
+          </tr>
+        </thead>
+        <tbody class="table-sortable">
+          <% @notes.each do |note| %>
+          <%= render 'public/notes/note', note: note %>
+          <% end %>
+        </tbody>
+      </table>
+
+      <%# ユーザ検索 %>
+      <% else %>
+      <h2>End users search for '<%= @word %>'</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>イメージ</th>
+            <th>タイトル</th>
+            <th>概要</th>
+          </tr>
+        </thead>
+        <tbody class="table-sortable">
+          <% @end_users.each do |end_user| %>
+          <%= render 'public/end_users/end_user', end_user: end_user %>
+          <% end %>
+        </tbody>
+      </table>
+      <% end %>
+
+    </div>
+  </div>
+</div>
