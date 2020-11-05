@@ -1,0 +1,13 @@
+<%= content_tag "tr", id: "note-#{note.id}", class: "item", data: { model_name: @note.class.name.underscore, update_url: note_sort_path(note)} do %>
+<td>
+  <%= link_to organize_path(note) do %>
+  <%= attachment_image_tag note, :image, :fill, 100, 100, format: 'jpeg' %>
+  <% end %>
+</td>
+<td>
+  <%= link_to organize_path(note) do %>
+  <%= note.name %>
+  <% end %>
+</td>
+<td><%= note.text %></td>
+<% end %>

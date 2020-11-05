@@ -1,0 +1,9 @@
+<%# 自分の投稿に対するいいね、コメントは通知に表示しない %>
+<% notifications = @notifications.where.not(visitor_id: current_end_user.id) %>
+<% if notifications.exists? %>
+<% notifications.each do |notification| %>
+<%= render 'public/notifications/notifications', notification: notification %>
+<% end %>
+<% else %>
+<p>通知はありません</p>
+<% end %>

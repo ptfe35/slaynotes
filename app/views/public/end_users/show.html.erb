@@ -1,14 +1,42 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Title</th>
-      <th>Opinion</th>
-    </tr>
-  </thead>
-  <tbody class="table-sortable">
-    <% @notes.each do |note| %>
-    <%= render 'public/notes/note', note: note %>
-    <% end %>
-  </tbody>
-</table>
+<div class="container">
+
+  <div class="row">
+    <div class="col-12">
+      <%= @end_user.name %>
+      <%= @end_user.introduction %>
+      <%= link_to following_end_user_path(@end_user) do %>
+      <span><%= @end_user.followings.count %>フォロー中</span>
+      <% end %>
+      <%= link_to followers_end_user_path(@end_user) do %>
+      <span class="ml-3"><%= @end_user.followers.count %>フォロワー</span>
+      <% end %>
+
+      <% if @end_user == current_end_user %>
+      <%= link_to edit_end_user_path(@end_user) do %>
+      <span class="btn">ユーザ情報変更</span>
+      <% end %>
+      <% end %>
+      <%= render 'public/end_user_relationships/follow_button', end_user: @end_user %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>イメージ</th>
+            <th>タイトル</th>
+            <th>概要</th>
+          </tr>
+        </thead>
+        <tbody class="table-sortable">
+          <% @notes.each do |note| %>
+          <%= render 'public/notes/note', note: note %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

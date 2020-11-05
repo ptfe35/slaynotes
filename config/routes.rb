@@ -1,30 +1,49 @@
 Rails.application.routes.draw do
 
-# 管理者用
+  # 管理者用
   namespace :admin do
     devise_for :admins, controllers: {
-    sessions: 'admin/admins/sessions',
-    registrations: 'admin/admins/registrations',
-    passwords: 'admin/admins/passwords'
-  }
-  root 'home#top'
-end
-
-# 一般会員用
-  scope module: 'public' do
-  devise_for :end_users, controllers: {
-    sessions: 'public/end_users/sessions',
-    registrations: 'public/end_users/registrations',
-    passwords: 'public/end_users/passwords'
-  }
-  root 'home#top'
-  get 'home/about' => 'home#about', as: 'about'
-  resources :end_users
-  resources :notes do
-    put :sort
+      sessions: 'admin/admins/sessions',
+      registrations: 'admin/admins/registrations',
+      passwords: 'admin/admins/passwords'
+    }
+    root 'home#top'
   end
 
-  resources :pages
+  # 一般会員用
+  scope module: 'public' do
+    devise_for :end_users, controllers: {
+      sessions: 'public/end_users/sessions',
+      registrations: 'public/end_users/registrations',
+      passwords: 'public/end_users/passwords'
+    }
+    root 'home#top'
+    get 'home/about' => 'home#about', as: 'about'
+    post '/home/guest_sign_in', to: 'home#new_guest' # ゲストログイン
+
+    resources :end_user_relationships, only: [:create, :destroy]
+    resources :end_users do
+      member do
+        get :following, :followers
+      end
+    end
+
+    resources :notes do
+      put :sort
+    end
+
+    resources :pages do
+      resources :page_comments, only: [:create, :destroy]
+      resource :page_favorites, only: [:create, :destroy]
+      put :sort
+    end
+
+    resource :network, only: [:show]
+    get 'networks/search' => 'networks#search', as: 'search'
+
+    resources :notifications, only: :index
+    delete 'notifications' => 'notifications#destroy_all', as: 'destroy_all_notifications'
+    resources :organizes, only: [:index, :show]
 
 #  get 'customers/mypage' => 'customers#show', as: 'mypage'
 #  get 'customers/information/edit' => 'customers#edit', as: 'edit_information'

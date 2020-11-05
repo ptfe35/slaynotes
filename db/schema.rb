@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_28_085037) do
+ActiveRecord::Schema.define(version: 2020_11_04_085008) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -25,11 +25,13 @@ ActiveRecord::Schema.define(version: 2020_10_28_085037) do
   end
 
   create_table "end_user_relationships", force: :cascade do |t|
-    t.integer "end_user_id", null: false
-    t.integer "follow_id", null: false
+    t.integer "end_user_id"
+    t.integer "follow_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["end_user_id", "follow_id"], name: "index_end_user_relationships_on_end_user_id_and_follow_id", unique: true
+    t.index ["end_user_id"], name: "index_end_user_relationships_on_end_user_id"
+    t.index ["follow_id"], name: "index_end_user_relationships_on_follow_id"
   end
 
   create_table "end_user_tags", force: :cascade do |t|
@@ -58,13 +60,25 @@ ActiveRecord::Schema.define(version: 2020_10_28_085037) do
     t.integer "end_user_id", null: false
     t.string "name", null: false
     t.boolean "is_public", null: false
-    t.integer "creater_id", null: false
+    t.integer "creator_id", null: false
     t.string "image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "number", null: false
     t.integer "row_order"
     t.text "text"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "visitor_id"
+    t.integer "visited_id"
+    t.integer "note_id"
+    t.integer "page_id"
+    t.integer "page_comment_id"
+    t.string "action"
+    t.boolean "is_checked", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "page_comments", force: :cascade do |t|
@@ -89,18 +103,24 @@ ActiveRecord::Schema.define(version: 2020_10_28_085037) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "page_tagmaps", force: :cascade do |t|
+    t.integer "page_id"
+    t.integer "page_tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "page_tags", force: :cascade do |t|
-    t.integer "page_id", null: false
-    t.string "name", null: false
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "pages", force: :cascade do |t|
-    t.integer "chapter_id", null: false
+    t.integer "note_id", null: false
     t.string "name", null: false
     t.boolean "is_public", null: false
-    t.integer "creater_id", null: false
+    t.integer "creator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "number", null: false

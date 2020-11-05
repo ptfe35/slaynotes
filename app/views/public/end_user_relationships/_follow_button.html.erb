@@ -1,0 +1,13 @@
+<% unless current_end_user == end_user %>
+  <% if current_end_user.following?(end_user) %>
+    <%= form_with model: current_end_user.end_user_relationships.find_by(follow_id: end_user.id), method: :delete, local: true do |f| %>
+      <%= hidden_field_tag :follow_id, end_user.id %>
+      <%= f.submit 'フォローを外す', class: 'btn btn-danger btn-block' %>
+    <% end %>
+  <% else %>
+    <%= form_with model: current_end_user.end_user_relationships.build, local: true do |f| %>
+      <%= hidden_field_tag :follow_id, end_user.id %>
+      <%= f.submit 'フォローする', class: 'btn btn-primary btn-block' %>
+    <% end %>
+  <% end %>
+<% end %>
