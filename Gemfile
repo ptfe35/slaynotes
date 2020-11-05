@@ -66,26 +66,47 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-# original
+
+
+# ログイン機能
 gem 'devise'
+# ログイン機能日本語化
+gem 'devise-i18n'
+gem 'devise-i18n-views'
+
+# 画像投稿
 gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
+
+# CSSフレームワーク
 gem 'bootstrap', '~> 4.1.1'
-gem 'jquery-rails'
 gem 'materialize-sass', '~> 1.0.0'
 gem 'material_icons'
+
+# JS
+gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'ranked-model'
-gem 'kaminari','~> 1.2.1'
 gem 'jquery-turbolinks'
 gem 'dotenv-rails'
 
+# リスト並べ替え機能
+gem 'ranked-model'
+
+# ページング
+gem 'kaminari','~> 1.2.1'
+
+# マークダウン、シンタックスハイライト
+gem 'redcarpet', '~> 2.3.0'
+gem 'coderay'
+
+# デプロイ簡易化
 group :tools do
   gem 'capistrano'
   gem 'rubocop'
   gem 'squasher', '>= 0.6.0'
 end
 
+# 本番用DB
 group :production do
   gem 'mysql2'
 end

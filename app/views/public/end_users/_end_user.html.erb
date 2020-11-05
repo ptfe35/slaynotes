@@ -1,0 +1,11 @@
+<td>
+  <%= link_to end_user_path(end_user) do %>
+  <%= attachment_image_tag end_user, :image, :fill, 100, 100, format: 'jpeg' %>
+  <% end %>
+</td>
+<td>
+  <%= link_to end_user_path(end_user) do %>
+  <%= end_user.name %>
+  <% end %>
+</td>
+<td><%= end_user.introduction %></td>

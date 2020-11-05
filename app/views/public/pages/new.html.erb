@@ -1,15 +1,19 @@
-<%= form_with model: @note, local: true do |n| %>
-  <%= n.label :name, "ノート名称" %>
-  <%= n.text_field :name %>
-  <%= n.fields_for :chapter do |c| %>
-    <%= c.label :name, "章" %>
-    <%= c.text_field :name %>
-    <%= c.fields_for :page do |p| %>
-      <%= p.label :name, "節" %>
-      <%= p.text_field :name %>
-      <%= p.label :text, "節" %>
-      <%= p.text_area :text %>
-    <% end %>
-  <% end %>
-  <%= n.submit "タスク作成" %>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <%= form_with model: @page, local: true do |f| %>
+      <%= f.label :name, "ページ名称" %>
+      <%= f.text_field :name %>
+      <%= f.label :text, "概要" %>
+      <%= f.text_area :text %>
+      <%= f.label :note_id, "ノート" %>
+      <%= f.collection_select :note_id, @notes, :id, :name, :prompt => "--選択してください--" %>
+      <div class="tag">
+        <%= f.label :tag, "タグ"  %>
+        <%= f.text_field :tag_name, value: @tag_list %>
+      </div>
+      <%= f.submit "ページ作成" %>
+      <% end %>
+    </div>
+  </div>
+</div>
