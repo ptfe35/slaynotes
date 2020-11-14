@@ -72,6 +72,11 @@
             <th>いいね</th>
           </tr>
         </thead>
+        <tbody class="">
+          <% @pages.each do |page| %>
+          <%= render 'public/pages/page', page: page %>
+          <% end %>
+        </tbody>
       </table>
     </div>
 
