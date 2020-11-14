@@ -21,14 +21,16 @@ class Public::PagesController < ApplicationController
   def create
     @page = Page.new(page_params)
     @page.creator_id = current_end_user.id
+
     # フォームから送られてきたタグネームをsplitで区切りを付けて、pageとは別にtagに保存
-    tag_list = params[:page][:tag_name].split(nil)
+    # tag_list = params[:page][:tag_name].split(nil)
 
     @page.is_public = 1
     @page.number = 1
 
     @page.save
-    @page.save_tags(tag_list) # page.rbで定義したメソッド
+    # @page.save_tags(tag_list) # page.rbで定義したメソッド
+    flash.now[:notice]="ページを追加しました。"
     redirect_to note_path(@page.note_id)
   end
 
@@ -41,10 +43,10 @@ class Public::PagesController < ApplicationController
   def update
     @page = Page.find(params[:id])
     # フォームから送られてきたタグネームをsplit(",")で区切りを付けて、pageとは別にtagに保存
-    tag_list = params[:page][:tag_name].split(nil)
+    # tag_list = params[:page][:tag_name].split(nil)
     if @page.update(page_params)
-      @page.save_tags(tag_list) # page.rbで定義したメソッド
-      flash[:notice] = '編集が完了しました。'
+      # @page.save_tags(tag_list) # page.rbで定義したメソッド
+      flash.now[:notice] = 'ページの編集が完了しました。'
       redirect_to note_path(@page.note_id)
     else
       @notes = Note.where(end_user_id: current_end_user)

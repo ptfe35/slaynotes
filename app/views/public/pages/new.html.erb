@@ -64,7 +64,7 @@
       <%= f.label :text, "テキスト：" %>
       <%= f.text_area :text, 'data-provider': :summernote %><br>
       <%= f.label :note_id, "ノート：" %>
-      <%= f.collection_select :note_id, @notes, :id, :name, :prompt => "--選択してください--", selected: @note_id %>
+      <%= f.collection_select :note_id, @notes, :id, :name, selected: @note_id %>
       <div class="tag">
         <%= f.label :tag, "タグ："  %>
         <%= f.text_field :tag_name, value: @tag_list %>

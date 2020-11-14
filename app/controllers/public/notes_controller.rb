@@ -24,6 +24,7 @@ class Public::NotesController < ApplicationController
     @note.is_public = 1
     @note.number = 1
     @note.save
+    flash.now[:notice]="ノートを追加しました。"
     redirect_to end_user_path(current_end_user)
   end
 
