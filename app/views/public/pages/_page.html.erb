@@ -6,7 +6,6 @@
   <%= page.name %>
   <% end %>
 </td>
-<td><%= page.text %></td>
 <td>
   <% page.page_tags.each do |page_tag| %>
   <%= link_to note_path(page.note_id, page_tag_id: page_tag.id) do %>

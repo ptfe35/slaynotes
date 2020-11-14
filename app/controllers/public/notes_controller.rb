@@ -4,6 +4,9 @@ class Public::NotesController < ApplicationController
   def show
     @note = Note.find(params[:id])
     @end_user = EndUser.find(@note.end_user_id)
+    @notes = @end_user.notes.rank(:row_order)
+    @note_new = Note.new
+
     page_tag_id = params[:page_tag_id] # クリックしたタグのIDを取得する。
     if page_tag_id.present?
       @page_tag = PageTag.find(params[:page_tag_id]) # クリックしたタグを取得する。

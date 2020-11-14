@@ -19,12 +19,20 @@
       <%= render 'public/end_user_relationships/follow_button', end_user: @end_user %>
       <div class="border-bottom mt-3"></div>
 
-      <% if false %>
-      <h1 class="h3 my-4">ページ一覧</h1>
+      <h1 class="h3 my-4">ノート一覧</h1>
       <ul class="nav flex-column">
+        <% @notes.each do |note| %>
         <li class="nav-item">
-          <ul class="collapse list-unstyled pl-3">
-            <% @pages.each do |page| %>
+          <div class="d-flex align-items-center">
+            <%= link_to note_path(note), class: "nav-link" do %>
+            <%= note.name %>
+            <% end %>
+            <button class="btn btn-link btn-sm" data-target="#collapse-menu<%= note.id %>" data-toggle="collapse">
+              <i class="material-icons">keyboard_arrow_down</i>
+            </button>
+          </div>
+          <ul id="collapse-menu<%= note.id %>" class="collapse list-unstyled pl-3">
+            <% note.pages.each do |page| %>
             <li>
               <%= link_to page_path(page), class: "nav-link" do %>
               <%= page.name %>
@@ -33,10 +41,21 @@
             <% end %>
           </ul>
         </li>
+        <% end %>
       </ul>
+      <div class="border-bottom mt-3"></div>
+
+      <h1 class="h3 my-4">ノート新規作成</h1>
+      <%= form_with model: @note_new, local: true do |f| %>
+      <%= f.label :name, "ノート名称" %><br>
+      <%= f.text_field :name %><br>
+      <%= f.label :text, "ノート概要" %><br>
+      <%= f.text_area :text %><br>
+      <%= f.label :image, "イメージ画像" %>
+      <%= f.attachment_field :image %><br><br>
+      <%= f.submit "ノート作成"%>
       <% end %>
     </div>
-
 
     <div class="col-8 mt-4">
       <%= @note.name %>のページ一覧
@@ -50,12 +69,14 @@
       <table class="table">
         <thead>
           <tr>
-            <th>イメージ</th>
+            <th></th>
             <th>タイトル</th>
-            <th>概要</th>
+            <th>タグ</th>
+            <th>コメント数</th>
+            <th>いいね</th>
           </tr>
         </thead>
-        <tbody class="table-sortable">
+        <tbody class="">
           <% @pages.each do |page| %>
           <%= render 'public/pages/page', page: page %>
           <% end %>

@@ -4,6 +4,9 @@ class Public::PagesController < ApplicationController
   def show
     @page = Page.find(params[:id])
     @page_comment = PageComment.new
+    @end_user = EndUser.find(@page.note.end_user_id)
+    @notes = @end_user.notes.rank(:row_order)
+    @note_new = Note.new
   end
 
   def new

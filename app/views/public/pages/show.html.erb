@@ -1,42 +1,90 @@
 <div class="container">
   <div class="row my-3">
-    <div class="col-12">
+
+    <div class="col-3 mt-4">
+      ユーザ名：<%= @end_user.name %><br>
+      紹介文：<%= @end_user.introduction %>
+      <%= link_to following_end_user_path(@end_user) do %><br>
+      <span><%= @end_user.followings.count %>フォロー中</span>
+      <% end %>
+      <%= link_to followers_end_user_path(@end_user) do %>
+      <span class="ml-3"><%= @end_user.followers.count %>フォロワー</span>
+      <% end %>
+      <br>
+      <% if @end_user == current_end_user %>
+      <%= link_to edit_end_user_path(@end_user) do %>
+      <span class="btn btn-success mt-2">ユーザ情報変更</span>
+      <% end %>
+      <% end %>
+      <%= render 'public/end_user_relationships/follow_button', end_user: @end_user %>
+      <div class="border-bottom mt-3"></div>
+
+      <h1 class="h3 my-4">ノート一覧</h1>
+      <ul class="nav flex-column">
+        <% @notes.each do |note| %>
+        <li class="nav-item">
+          <div class="d-flex align-items-center">
+            <%= link_to note_path(note), class: "nav-link" do %>
+            <%= note.name %>
+            <% end %>
+            <button class="btn btn-link btn-sm" data-target="#collapse-menu<%= note.id %>" data-toggle="collapse">
+              <i class="material-icons">keyboard_arrow_down</i>
+            </button>
+          </div>
+          <ul id="collapse-menu<%= note.id %>" class="collapse list-unstyled pl-3">
+            <% note.pages.each do |page| %>
+            <li>
+              <%= link_to page_path(page), class: "nav-link" do %>
+              <%= page.name %>
+              <% end %>
+            </li>
+            <% end %>
+          </ul>
+        </li>
+        <% end %>
+      </ul>
+      <div class="border-bottom mt-3"></div>
+
+      <h1 class="h3 my-4">ノート新規作成</h1>
+      <%= form_with model: @note_new, local: true do |f| %>
+      <%= f.label :name, "ノート名称" %><br>
+      <%= f.text_field :name %><br>
+      <%= f.label :text, "ノート概要" %><br>
+      <%= f.text_area :text %><br>
+      <%= f.label :image, "イメージ画像" %>
+      <%= f.attachment_field :image %><br><br>
+      <%= f.submit "ノート作成"%>
+      <% end %>
+    </div>
+
+    <div class="col-8">
       <%= @page.name %>
       <%= markdown(@page.text).html_safe %>
-    </div>
-  </div>
 
-  <div class="row mt-3 mb-5">
-    <div class="col-12">
       <%= link_to edit_page_path(@page) do %>
       <span class="btn btn-success">編集する</span>
       <% end %>
       <%= link_to note_path(@page.note_id) do %>
       <span class="btn btn-success">戻る</span>
       <% end %>
-    </div>
-  </div>
 
-  <div class="row">
-  <h4>コメント</h4>
-    <div class="col-12">
-      <ol id="page-comment-link">
-        <%= render 'public/page_comments/comment', page: @page %>
-      </ol>
-    </div>
-  </div>
+      <div class="mt-4">
+        <h4>コメント</h4>
+        <ol id="page-comment-link">
+          <%= render 'public/page_comments/comment', page: @page %>
+        </ol>
 
-  <div class="row">
-    <div class="col-12">
-      <%= form_with model: [@page, @page_comment] do |f| %>
-      <div class="row">
-        <div class="col-8">
-          <%= f.text_area :comment, rows:'3', class: "form-control",placeholder: "コメント" %>
+        <%= form_with model: [@page, @page_comment] do |f| %>
+        <div class="row">
+          <div class="col-8">
+            <%= f.text_area :comment, rows:'3', class: "form-control",placeholder: "コメント" %>
+          </div>
         </div>
+        <%= f.submit "送信する", class: "btn btn-success mt-2" %>
+        <% end %>
       </div>
-      <%= f.submit "送信する", class: "btn btn-success mt-2" %>
-      <% end %>
     </div>
-  </div>
 
+
+  </div>
 </div>
