@@ -1,4 +1,4 @@
-<%= content_tag "tr", id: "page-#{page.id}", class: "item", data: { model_name: @note.class.name.underscore, update_url: page_sort_path(page)} do %>
+<tr>
 <td>
 </td>
 <td>
@@ -19,4 +19,4 @@
   <%= render 'public/page_favorites/favorite', page: page %>
 </td>
 
-<% end %>
+</tr>

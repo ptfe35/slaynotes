@@ -10,10 +10,11 @@ class Public::NotesController < ApplicationController
     page_tag_id = params[:page_tag_id] # クリックしたタグのIDを取得する。
     if page_tag_id.present?
       @page_tag = PageTag.find(params[:page_tag_id]) # クリックしたタグを取得する。
-      @pages = @page_tag.pages.where(note_id: @note.id).rank(:row_order) # クリックしたタグに紐づくページのみを抽出する。
+      @pages = @page_tag.pages.where(note_id: @note.id) # クリックしたタグに紐づくページのみを抽出する。
     else
-      @pages = Page.where(note_id: @note.id).rank(:row_order)
+      @pages = Page.where(note_id: @note.id)
     end
+    @pages = @pages.rank(:row_order)
   end
 
   def create
