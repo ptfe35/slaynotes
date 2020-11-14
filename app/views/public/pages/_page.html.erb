@@ -6,6 +6,17 @@
     <% end %>
   </td>
 
+<% if false %>
+  <td>
+    <% page.page_tags.each do |page_tag| %>
+    <%= link_to note_path(page.note_id, page_tag_id: page_tag.id) do %>
+    <%= page_tag.name %>
+    <% end %>
+    <% end %>
+  </td>
+<% end %>
+
+
   <td><%= page.page_comments.count %></td>
 
   <td class="favorite_<%= page.id %>">
