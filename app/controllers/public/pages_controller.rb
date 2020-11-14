@@ -11,13 +11,17 @@ class Public::PagesController < ApplicationController
 
   def new
     @page = Page.new
-    @notes = Note.where(end_user_id: current_end_user)
+    @note_id = params[:note_id]
+    note = Note.find(@note_id)
+    @end_user = EndUser.find(note.end_user_id)
+    @notes = @end_user.notes.rank(:row_order)
+    @note = Note.new
   end
 
   def create
     @page = Page.new(page_params)
     @page.creator_id = current_end_user.id
-    # フォームから送られてきたタグネームをsplit(",")で区切りを付けて、pageとは別にtagに保存
+    # フォームから送られてきたタグネームをsplitで区切りを付けて、pageとは別にtagに保存
     tag_list = params[:page][:tag_name].split(nil)
 
     @page.is_public = 1

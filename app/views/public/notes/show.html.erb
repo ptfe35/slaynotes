@@ -57,7 +57,28 @@
       <% end %>
     </div>
 
-
+    <div class="col-8 mt-4">
+      <%= @note.name %>のページ一覧
+      <%= link_to new_page_path(note_id: @note.id) do %>
+      <span class="btn">ページを追加する</span>
+      <% end %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>タイトル</th>
+            <th>タグ</th>
+            <th>コメント数</th>
+            <th>いいね</th>
+          </tr>
+        </thead>
+        <tbody class="">
+          <% @pages.each do |page| %>
+          <%= render 'public/pages/page', page: page %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
 
   </div>
 </div>
