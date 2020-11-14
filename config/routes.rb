@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       resource :page_favorites, only: [:create, :destroy]
       put :sort
     end
+    resources :page_images, only: [:create, :destroy]
 
     resource :network, only: [:show]
     get 'networks/search' => 'networks#search', as: 'search'

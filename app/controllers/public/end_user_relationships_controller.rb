@@ -1,5 +1,4 @@
 class Public::EndUserRelationshipsController < ApplicationController
-
   before_action :set_end_user
 
   def create
@@ -30,5 +29,4 @@ class Public::EndUserRelationshipsController < ApplicationController
   def set_end_user
     @end_user = EndUser.find(params[:follow_id])
   end
-
 end

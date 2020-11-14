@@ -12,9 +12,7 @@
       </div>
       <div class="comment-entry"><%= page_comment.comment %></div>
       <% if page_comment.end_user == current_end_user %>
-      <div>
-        <%= link_to "削除", page_page_comment_path(page_comment.page, page_comment), method: :delete, class: "btn btn-danger pull-right", remote: true %>
-      </div>
+        <%= link_to "削除", page_page_comment_path(page_comment.page, page_comment), method: :delete, class: "btn btn-sm btn-danger mb-2", remote: true %>
       <% end %>
     </div>
   </div>

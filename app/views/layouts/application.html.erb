@@ -16,14 +16,18 @@
 <body class="d-flex flex-column" style="min-height: 100vh">
 
   <header class="sticky-top">
-    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
       <% if admin_admin_signed_in? %>
       <%= link_to admin_root_path do %>
-      <%# image_tag 'nagano_cake_clear2.png', size: "260x100", class:'navbar-brand' %>
+      <%= image_tag 'logo.png', size: "180x60", class:'navbar-brand' %>
+      <% end %>
+      <% elsif end_user_signed_in? %>
+      <%= link_to end_user_path(current_end_user) do %>
+      <%= image_tag 'logo.png', size: "180x60", class:'navbar-brand' %>
       <% end %>
       <% else %>
       <%= link_to root_path do %>
-      <%# image_tag 'nagano_cake_clear2.png', size: "260x100", class:'navbar-brand' %>
+      <%= image_tag 'logo.png', size: "180x60", class:'navbar-brand' %>
       <% end %>
       <% end %>
       <ul class="navbar-nav ml-auto">
@@ -31,26 +35,14 @@
         <%# 管理者用ヘッダー %>
         <% if admin_admin_signed_in? %>
         <li class="m-3">
-          <%= link_to admin_products_path do %>
-          <button type="button" class="btn page-link text-dark d-inline-block">商品一覧<span
-              class="sr-only"></span></button>
-          <% end %>
-        </li>
-        <li class="m-3">
-          <%= link_to admin_customers_path do %>
+          <%= link_to admin_end_users_path do %>
           <button type="button" class="btn page-link text-dark d-inline-block">会員一覧<span
               class="sr-only"></span></button>
           <% end %>
         </li>
         <li class="m-3">
-          <%= link_to admin_orders_path(order_check: nil) do %>
-          <button type="button" class="btn page-link text-dark d-inline-block">注文履歴一覧<span
-              class="sr-only"></span></button>
-          <% end %>
-        </li>
-        <li class="m-3">
-          <%= link_to admin_genres_path do %>
-          <button type="button" class="btn page-link text-dark d-inline-block">ジャンル一覧<span
+          <%= link_to admin_notes_path do %>
+          <button type="button" class="btn page-link text-dark d-inline-block">ノート一覧<span
               class="sr-only"></span></button>
           <% end %>
         </li>
@@ -60,21 +52,10 @@
               class="sr-only"></span></button>
           <% end %>
         </li>
-        <div class="m-3 form-inline">
-          <%= form_tag(admin_search_path, method: :get) do %>
-          <%= text_field_tag :search, '', class: 'form-control', placeholder: 'Search' %>
-          <% end %>
-        </div>
 
         <%# 一般会員用ヘッダー %>
         <% elsif end_user_signed_in? %>
-        <li class="m-3 d-flex align-items-center">ようこそ、<%= current_end_user.name %>さん！</li>
-        <% if unchecked_notifications.any? %>
-        <i class="fa fa-circle" style="color: gold;"></i>
-        <% end %>
-        <li>
-          <%= link_to "NOTICE", notifications_path, class: "mt-3 btn-default" %>
-        </li>
+        <li class="m-3 d-flex align-items-center">ログインユーザ：<%= current_end_user.name %></li>
         <li class="m-3">
           <%= link_to end_user_path(current_end_user) do %>
           <button type="button" class="btn page-link text-dark d-inline-block">マイページ<span
@@ -82,8 +63,11 @@
           <% end %>
         </li>
         <li class="m-3">
-          <%= link_to notes_path do %>
-          <button type="button" class="btn page-link text-dark d-inline-block">新しいノートをつくる<span
+          <% if unchecked_notifications.any? %>
+          <i class="fa fa-circle" style=""></i>
+          <% end %>
+          <%= link_to notifications_path do %>
+          <button type="button" class="btn page-link text-dark d-inline-block">通知を見る<span
               class="sr-only"></span></button>
           <% end %>
         </li>
@@ -95,7 +79,7 @@
         </li>
         <li class="m-3">
           <%= link_to network_path do %>
-          <button type="button" class="btn page-link text-dark d-inline-block">ネットワーク<span
+          <button type="button" class="btn page-link text-dark d-inline-block">他の人のノートを見る<span
               class="sr-only"></span></button>
           <% end %>
         </li>
@@ -141,7 +125,7 @@
   <footer class="mt-auto">
     <div class="container">
       <div class="row">
-        <div class="col-4 offset-8">
+        <div class="col-2 offset-10">
           <span>©︎ 2020 ptfe35</span>
         </div>
       </div>
