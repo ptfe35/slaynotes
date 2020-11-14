@@ -1,4 +1,5 @@
 class Public::PagesController < ApplicationController
+  protect_from_forgery except: [:sort]
 
   def show
     @page = Page.find(params[:id])
@@ -36,7 +37,7 @@ class Public::PagesController < ApplicationController
     tag_list = params[:page][:tag_name].split(nil)
     if @page.update(page_params)
       @page.save_tags(tag_list) # page.rbで定義したメソッド
-      flash[:notice] = "You have updated book successfully."
+      flash[:notice] = '編集が完了しました。'
       redirect_to note_path(@page.note_id)
     else
       @notes = Note.where(end_user_id: current_end_user)
@@ -44,14 +45,19 @@ class Public::PagesController < ApplicationController
     end
   end
 
+  def sort
+    page = Page.find(params[:page_id])
+    page.update(page_params)
+    render body: nil
+  end
+
   private
 
   def page_params
-    params.require(:page).permit(:name, :is_public, :note_id, :text, :number, :creater_id)
+    params.require(:page).permit(:name, :is_public, :note_id, :text, :number, :creator_id, :row_order_position)
   end
 
   def page_tag_params
     params.require(:page_tag).permit(:name)
   end
-
 end

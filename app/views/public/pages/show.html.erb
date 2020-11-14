@@ -1,41 +1,42 @@
 <div class="container">
-<div class="row">
-<div class="col-12">
-  <%= @page.name %>
-  <%= markdown(@page.text).html_safe %>
-</div>
-</div>
-
-<div class="row">
-<div class="col-12">
-<%= link_to edit_page_path(@page) do %>
-<span class="btn">編集する</span>
-<% end %>
-<%= link_to note_path(@page.note_id) do %>
-<span class="btn">戻る</span>
-<% end %>
-</div>
-</div>
-
-<div class="row">
-<div class="col-12">
-<ol id="page-comment-link">
-  <%= render 'public/page_comments/comment', page: @page %>
-</ol>
-</div>
-</div>
-
-<div class="row">
-<div class="col-12">
-<%= form_with model: [@page, @page_comment] do |f| %>
-  <div class="row">
-    <div class="col-sm-12">
-      <%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "コメントをここに" %>
+  <div class="row my-3">
+    <div class="col-12">
+      <%= @page.name %>
+      <%= markdown(@page.text).html_safe %>
     </div>
   </div>
-  <%= f.submit "送信する", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
-<% end %>
-</div>
-</div>
+
+  <div class="row mt-3 mb-5">
+    <div class="col-12">
+      <%= link_to edit_page_path(@page) do %>
+      <span class="btn btn-success">編集する</span>
+      <% end %>
+      <%= link_to note_path(@page.note_id) do %>
+      <span class="btn btn-success">戻る</span>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+  <h4>コメント</h4>
+    <div class="col-12">
+      <ol id="page-comment-link">
+        <%= render 'public/page_comments/comment', page: @page %>
+      </ol>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <%= form_with model: [@page, @page_comment] do |f| %>
+      <div class="row">
+        <div class="col-8">
+          <%= f.text_area :comment, rows:'3', class: "form-control",placeholder: "コメント" %>
+        </div>
+      </div>
+      <%= f.submit "送信する", class: "btn btn-success mt-2" %>
+      <% end %>
+    </div>
+  </div>
 
 </div>

@@ -1,12 +1,17 @@
-<div class="center-align">
+<span class="text-center">
+
   <h4>あなただけのノートをつくろう。</h4>
   <h4>みんなのノートを見てみよう。</h4>
 
-  <%= link_to new_end_user_session_path do %>
-  <span class="btn">ログイン</span>
-  <% end %>
-  <%= link_to new_end_user_registration_path do %>
-  <span class="btn">会員登録</span>
-  <% end %>
-  <%= link_to 'ゲストログイン（閲覧用）', home_guest_sign_in_path, method: :post %>
-</div>
+  <div class="mx-auto">
+    <%= link_to new_end_user_session_path do %>
+    <span class="btn btn-success">ログイン</span>
+    <% end %>
+    <%= link_to new_end_user_registration_path do %>
+    <span class="btn btn-success">会員登録</span>
+    <% end %>
+    <br><br>
+    <%= link_to 'ゲストログイン', home_guest_sign_in_path, method: :post %>
+  </div>
+
+</span>

@@ -1,7 +1,5 @@
 class Public::NetworksController < ApplicationController
-
-  def show
-  end
+  def show; end
 
   def search
     @word = params[:word]
@@ -13,5 +11,4 @@ class Public::NetworksController < ApplicationController
       @notes = Note.search(search, @word)
     end
   end
-
 end

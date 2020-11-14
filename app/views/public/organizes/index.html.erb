@@ -1,15 +1,19 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
+    <div class="my-3">
+    ドラッグ&ドロップでノートの並び替えができます。<br>
+    ページの並び替えを行いたい場合は、ノートのタイトルをクリックしてください。
+    </div>
       <table class="table">
         <thead>
           <tr>
-            <th>イメージ</th>
+            <th></th>
             <th>タイトル</th>
             <th>概要</th>
           </tr>
         </thead>
-        <tbody class="table-sortable">
+        <tbody id="notes_list" class="table-sortable">
           <% @notes.each do |note| %>
           <%= render 'public/organizes/organize_note', note: note %>
           <% end %>

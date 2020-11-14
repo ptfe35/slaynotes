@@ -17,6 +17,13 @@
  // Custom bootstrap variables must be set or imported *before* bootstrap.
 
 @import "bootstrap";
+@import "summernote-bs4";
+
+.table-sortable {
+    tr.item {
+      cursor: row-resize;
+    }
+  }
 
 .n-circle {
   position: absolute;
