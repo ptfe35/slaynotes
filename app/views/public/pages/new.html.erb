@@ -65,10 +65,14 @@
       <%= f.text_area :text, 'data-provider': :summernote %><br>
       <%= f.label :note_id, "ノート：" %>
       <%= f.collection_select :note_id, @notes, :id, :name, selected: @note_id %>
+
+      <% if false %>
       <div class="tag">
         <%= f.label :tag, "タグ："  %>
         <%= f.text_field :tag_name, value: @tag_list %>
       </div>
+      <% end %>
+
       <%= f.submit "ページ作成", class: "btn btn-success mt-2"%>
       <% end %>
     </div>
