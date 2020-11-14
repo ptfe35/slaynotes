@@ -4,7 +4,9 @@
 
       <%# ノート検索 %>
       <% if @range == '2' %>
-      <h2>Notes search for '<%= @word %>'</h2>
+      <div class="my-3">
+        <h3>'<%= @word %>'を含むノートを検索しました。</h3>
+      </div>
       <table class="table">
         <thead>
           <tr>
@@ -22,16 +24,18 @@
 
       <%# ユーザ検索 %>
       <% else %>
-      <h2>End users search for '<%= @word %>'</h2>
+      <div class="my-3">
+        <h3>'<%= @word %>'を含むユーザを検索しました。</h3>
+      </div>
       <table class="table">
         <thead>
           <tr>
-            <th>イメージ</th>
-            <th>タイトル</th>
-            <th>概要</th>
+            <th></th>
+            <th>ユーザ名</th>
+            <th>紹介文</th>
           </tr>
         </thead>
-        <tbody class="table-sortable">
+        <tbody class="">
           <% @end_users.each do |end_user| %>
           <%= render 'public/end_users/end_user', end_user: end_user %>
           <% end %>

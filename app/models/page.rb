@@ -1,5 +1,4 @@
 class Page < ApplicationRecord
-
   belongs_to :note
   has_many :page_comments, dependent: :destroy
   has_many :page_favorites, dependent: :destroy
@@ -9,12 +8,9 @@ class Page < ApplicationRecord
   has_many :page_tagmaps, dependent: :destroy
   has_many :page_tags, through: :page_tagmaps
 
-  # gem refileによる画像投稿機能
-  attachment :image
-
   # gem ranked-modelによるドラッグ&ドロップ機能
   include RankedModel
-  ranks :row_order , with_same: :note_id
+  ranks :row_order, with_same: :note_id
 
   # 「いいね」したかどうかの判定用
   def favorited_by?(end_user)
@@ -39,22 +35,19 @@ class Page < ApplicationRecord
     end
   end
 
-
   # 通知機能
   def create_notification_like!(current_end_user)
     # すでに「いいね」されているか検索
-    temp = Notification.where(["visitor_id = ? and visited_id = ? and page_id = ? and action = ? ", current_end_user.id, self.note.end_user_id, id, 'like'])
+    temp = Notification.where(['visitor_id = ? and visited_id = ? and page_id = ? and action = ? ', current_end_user.id, note.end_user_id, id, 'like'])
     # いいねされていない場合のみ、通知レコードを作成
     if temp.blank?
       notification = current_end_user.active_notifications.new(
         page_id: id,
-        visited_id: self.note.end_user_id,
+        visited_id: note.end_user_id,
         action: 'like'
       )
       # 自分の投稿に対するいいねの場合は、通知済みとする
-      if notification.visitor_id == notification.visited_id
-        notification.is_checked = true
-      end
+      notification.is_checked = true if notification.visitor_id == notification.visited_id
       notification.save if notification.valid?
     end
   end
@@ -66,7 +59,7 @@ class Page < ApplicationRecord
       save_notification_comment!(current_end_user, page_comment_id, temp_id['end_user_id'])
     end
     # まだ誰もコメントしていない場合は、投稿者に通知を送る
-    save_notification_comment!(current_end_user, page_comment_id, self.note.end_user_id) if temp_ids.blank?
+    save_notification_comment!(current_end_user, page_comment_id, note.end_user_id) if temp_ids.blank?
   end
 
   def save_notification_comment!(current_end_user, page_comment_id, visited_id)
@@ -78,10 +71,7 @@ class Page < ApplicationRecord
       action: 'comment'
     )
     # 自分の投稿に対するコメントの場合は、通知済みとする
-    if notification.visitor_id == notification.visited_id
-      notification.is_checked = true
-    end
+    notification.is_checked = true if notification.visitor_id == notification.visited_id
     notification.save if notification.valid?
   end
-
 end

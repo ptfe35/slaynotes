@@ -1,5 +1,4 @@
 class Public::PageFavoritesController < ApplicationController
-
   def create
     @page = Page.find(params[:page_id])
     favorite = current_end_user.page_favorites.new(page_id: @page.id)
@@ -12,5 +11,4 @@ class Public::PageFavoritesController < ApplicationController
     favorite = current_end_user.page_favorites.find_by(page_id: @page.id)
     favorite.destroy
   end
-
 end

@@ -1,15 +1,17 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
+        <div class="my-3">ドラッグ&ドロップでページの並び替えができます。</div>
       <table class="table">
         <thead>
           <tr>
-            <th>イメージ</th>
-            <th>タイトル</th>
-            <th>概要</th>
+            <th></th>
+            <th>ページ名称</th>
+            <th>コメント数</th>
+            <th>いいね</th>
           </tr>
         </thead>
-        <tbody class="table-sortable">
+        <tbody id="pages_list" class="table-sortable">
           <% @pages.each do |page| %>
           <%= render 'public/organizes/organize_page', page: page %>
           <% end %>

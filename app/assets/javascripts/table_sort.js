@@ -1,7 +1,6 @@
-$(function(){
-  $('.table_sortable').sortable({
-    axis: 'y',
-    items: '.item',
+
+$(document).on('turbolinks:load', function(){
+  $('#notes_list').sortable({
     update: function(e, ui){
       let item = ui.item;
       let item_data = item.data();
@@ -14,15 +13,25 @@ $(function(){
         data: params
       });
     },
-    start(e, ui) {
-      let cells, tableWidth, widthForEachCell;
-      tableWidth = $(this).width();
-      cells = ui.item.children('td');
-      widthForEachCell = tableWidth / cells.length + 'px';
-      return cells.css('width', widthForEachCell);
+    stop: function(e, ui){
+      ui.item.children('td').not('.item__status').effect('highlight', { color: "#FFFFCC" }, 500)
+    }
+  });
+  $('#pages_list').sortable({
+    update: function(e, ui){
+      let item = ui.item;
+      let item_data = item.data();
+      let params = {_method: 'put'};
+      params[item_data.modelName] = { row_order_position: item.index() }
+      $.ajax({
+        type: 'POST',
+        url: item_data.updateUrl,
+        dataType: 'json',
+        data: params
+      });
     },
-    stop(e, ui) {
-      return ui.item.children('td').effect('highlight');
-    },
+    stop: function(e, ui){
+      ui.item.children('td').not('.item__status').effect('highlight', { color: "#FFFFCC" }, 500)
+    }
   });
 });

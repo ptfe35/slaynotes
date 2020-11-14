@@ -1,18 +1,18 @@
 <div class="container">
-  <div class="row">
+  <div class="row mt-4">
     <div class="col-12">
       <%= form_with model: @page, local: true do |f| %>
-      <%= f.label :name, "ページ名称" %>
-      <%= f.text_field :name %>
-      <%= f.label :text, "概要" %>
-      <%= f.text_area :text %>
-      <%= f.label :note_id, "ノート" %>
+      <%= f.label :name, "ページ名称：" %>
+      <%= f.text_field :name %><br>
+      <%= f.label :text, "テキスト：" %>
+      <%= f.text_area :text, 'data-provider': :summernote %><br>
+      <%= f.label :note_id, "ノート：" %>
       <%= f.collection_select :note_id, @notes, :id, :name, :prompt => "--選択してください--" %>
       <div class="tag">
-        <%= f.label :tag, "タグ"  %>
+        <%= f.label :tag, "タグ："  %>
         <%= f.text_field :tag_name, value: @tag_list %>
       </div>
-      <%= f.submit "ページ作成" %>
+      <%= f.submit "ページ作成", class: "btn btn-success mt-2"%>
       <% end %>
     </div>
   </div>
